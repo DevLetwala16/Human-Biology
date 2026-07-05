@@ -137,8 +137,8 @@ body {
 /* Glassmorphism */
 .glass {
   background: var(--bg-glass);
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
 }
 
@@ -513,10 +513,103 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.7;
 }
 
-/* Responsive */
+/* Comprehensive Responsive System */
+@media (max-width: 1200px) {
+  /* Scale down some 5-column or 4-column grids */
+  [style*="grid-template-columns: repeat(5"] {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Tablet adjustments */
+  [style*="grid-template-columns: repeat(4"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  [style*="grid-template-columns: repeat(3"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  [style*="grid-template-columns: 1fr 1fr 1fr"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  [style*="display: flex"][style*="gap: 40"] {
+    gap: 24px !important;
+  }
+}
+
 @media (max-width: 768px) {
-  .section { padding: 56px 0; }
+  .section { padding: 48px 0; }
+  .section-sm { padding: 32px 0; }
   .container { padding: 0 16px; }
+  
+  /* Flatten all inline multi-column grids to 1 column on mobile */
+  [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Convert inline flex rows to columns if they have large gaps (indicating layout wrappers) */
+  [style*="display: flex"][style*="gap: 40"],
+  [style*="display: flex"][style*="gap: 32"] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  
+  /* Center text in section headers on mobile */
+  .section-header {
+    margin-bottom: 40px;
+    text-align: center !important;
+  }
+  
+  .section-title {
+    font-size: 32px !important;
+  }
+  
+  /* Fix charts overflowing or collapsing */
+  .recharts-responsive-container {
+    min-height: 280px !important;
+  }
+  
+  /* Make SVGs scale properly */
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Specific fixes for complex timeline and routine grids */
+  [style*="grid-template-columns: 48px 1fr auto auto"],
+  [style*="grid-template-columns: 48px 56px 1fr auto"],
+  [style*="grid-template-columns: 52px 52px 1fr"] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 16px !important;
+  }
+
+  /* Fix for Chapter Cards (Home page tabs) to ensure they are full width */
+  .bio-card[style*="flex: 1"] {
+    width: 100%;
+    flex: none !important;
+  }
+  
+  /* Fix layout for tabs (horizontal scroll on mobile) */
+  [style*="display: flex"][style*="gap: 4"][style*="paddingTop"] {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    padding-bottom: 12px !important;
+    justify-content: flex-start !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Very small mobile devices */
+  .section-title {
+    font-size: 26px !important;
+  }
+  .stat-number {
+    font-size: 28px !important;
+  }
 }
 
 /* Page transition */
